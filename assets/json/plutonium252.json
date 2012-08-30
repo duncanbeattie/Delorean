@@ -1,0 +1,50 @@
+[
+   {
+      "config" : {
+         "start_point" : 0,
+         "end_point" : 10
+      },
+      "tmpl" : {
+         "ptrn" : "div.lyt.tmpl_1{@bgimg}>h1{@h1}+div.copy{@text}",
+         "text" : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+         "image_url" : "assets/img/layouts/test_1.jpg",
+         "class" : "layout1",
+         "header" : "Test Layout 1"
+      },
+      "name" : "Layout 1",
+      "id" : "0001",
+      "comments" : "This should be using the layout1 class. Short header, small body copy on the left and a big ass image to the right",
+      "datetime" : 2,
+      "tags" : "layouts,tests,template one"
+   },
+   {
+      "tmpl" : {
+         "ptrn" : "div.lyt.tmpl_2>div.imgholder{@img}+div.copy>h1{@h1}+h2{@h2}",
+         "image_url" : "assets/img/layouts/test_2.jpg",
+         "class" : "layout2",
+         "header" : "Test Layout 2",
+         "subhead" : "Sub header"
+      },
+      "name" : "Layout 2",
+      "id" : "0002",
+      "comments" : "This should be using the layout2 class. Covering background image with big header text",
+      "datetime" : 5,
+      "tags" : "layouts,tests,template two"
+   },
+   {
+      "tmpl" : {
+         "ptrn" : "div.lyt.tmpl_3>div.imgholder{@img}+div.copy>h1{@h1}+{@text}+div.button{@btn}",
+         "text" : "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+         "linkto" : "http://www.google.com",
+         "linktext" : "linky link",
+         "image_url" : "assets/img/layouts/test_3.jpg",
+         "class" : "layout3",
+         "header" : "Test Layout 3"
+      },
+      "name" : "Layout 3",
+      "id" : "0003",
+      "comments" : "This should be using the layout3 class. header, copy, link and image",
+      "datetime" : 8,
+      "tags" : "layouts,tests,template three"
+   }
+]

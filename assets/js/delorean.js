@@ -35,15 +35,12 @@
 
 $(function(){
 	console.log('Great Scott!!!');
-	
 	$('.dlrn').DeLorean({
-		data: 'plutonium252.json'
+		data: 'assets/json/plutonium252.json', 
+		devmode: true,
+		wrapper: $('.dlrn'),
+		nav: $('.qnav')
 	});
-	
-	//delorean("plutonium252.json")
-	
-	// Usage:
-	
 })
 
 
@@ -52,14 +49,16 @@ $(function(){
 jQuery.fn.DeLorean = function() {
 	$.Q = this
 	$.Q.args = arguments[0] || {}
+	$.Q.wrpr = $.Q.args.wrapper
+	$.Q.dev = $.Q.args.devmode
 	
 	init = function(){
-		trace = function(m){console.log(m)}
+		trace = function(m){if($.Q.dev){console.log(m)}}
 		trace('data file : '+$.Q.args.data)
 
-		flux = function(cap){
-			$.getJSON(cap, function(data,status) {
-				if (status != "success") {trace("1.21 gigawatts! 1.21 gigawatts. Great Scott! ");return;}
+		getData = function(f){
+			$.getJSON(f, function(data,status) {
+				if (status != "success") {trace("problem with json request");return;}
 				trace('data loaded:')
 			 	trace(data);
 				$.Q.data = data
@@ -69,8 +68,7 @@ jQuery.fn.DeLorean = function() {
 	}
 	
 	init()
-	
-	flux(this.args.data)
+	getData($.Q.args.data)
 
 	SetLayouts = function(){
 		trace('Setting Layouts')
@@ -80,7 +78,42 @@ jQuery.fn.DeLorean = function() {
 		trace(data[0].config)
 		for(i=0;i<data.length;i++){
 			trace('slide id: '+data[i].id)
+			trace('slide id: '+data[i].tmpl.ptrn)
+			var tmpl = data[i].tmpl
+			var Zen = {
+			  main: tmpl.ptrn,
+			  h1: tmpl.header,
+			  h2: tmpl.subhead,
+			  text: '<p>'+tmpl.text+'</p>',
+			  img: '<img src="'+tmpl.image_url+'" alt="" />',
+			  bgimg: '<div class="bgimg" style="background-image:url('+tmpl.image_url+');"></div>',
+			  btn: '<a href="'+tmpl.linkto+'">'+tmpl.linktext+'</a>'
+			};
+			
+			data[i].mkp = $.zc(Zen)
+			trace(data[i].mkp)
 		}
+		loadup(data[0])
+		
+		quicknav()
+	}
+	
+	quicknav = function(){
+		var data = $.Q.data;
+		for(i=0;i<data.length;i++){
+			var lnk = '<span>'+data[i].name+'</span>'
+			$($.Q.args.nav).append(lnk)
+		}
+		$($.Q.args.nav).children('span').each(function(ii, el){
+			$(el).click(function(){
+				loadup($.Q.data[ii])
+			})
+		})
+	}
+	
+	loadup = function(obj){
+		trace('loadup: '+obj.name)
+		$($.Q.wrpr).html(obj.mkp)
 	}
 };
 

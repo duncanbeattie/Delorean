@@ -10,10 +10,9 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 div,input,textarea  { -webkit-box-sizing : border-box;-moz-box-sizing : border-box;-o-box-sizing : border-box;box-sizing : border-box; }
 /* LAYOUT */
 html{
-	background: #fbfbfb;
+	background: #fbfbfb url(../img/noise.png);
 	min-height: 100%;
 	min-width: 800px;
-	/* background-color: rgba(2,164,214,.1); */
 	box-shadow: 0 2px 1px rgba(255, 255, 255, 0.75) inset, 0 -1px 0 rgba(100, 100, 100, 0.1) inset, 0 -0.5em 6.5em rgba(100, 100, 150, 0.25) inset;
 	
 
@@ -88,33 +87,83 @@ p{
 		}
 
 section .inner{
-	width:90%;
+	width:100%;
 	max-width: 960px;
 	position: relative;
 	padding: 1em 0;
-	overflow: hidden;
+	/* overflow: hidden; */
 	z-index: 1;
 	margin: 0 auto;
 }
 
-
-/* the delorean [stationary] */
-.dlrn{
+/* quicknav */
+.qnav{
     background: none repeat scroll 0 0 rgba(255, 255, 255, 0.5);
     border-radius: 0.5em 0.5em 0.5em 0.5em;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-    margin: 2em auto;
-    padding: 1em;
-    width: 80%;
-    min-height: 450px;
+    margin: 2em;
+    padding: 1em;	
 }
-	.dlrn p{
-		margin: 2em 0;
-		text-align: center;	
-		color: #aaa;
+	.qnav span{
+		padding: 1em;
+		cursor: pointer;
 	}
 
+/* the delorean */
+.dlrn{
+    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.5);
+    border-radius: 0.5em ;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    margin: 2em auto 1em;
+    padding: 1em;
+    width: 99%;
+    min-height: 450px;
+}
 
+
+/* timeline */
+.timeline{
+	background: none repeat scroll 0 0 rgba(255, 255, 255, 0.5);
+    border-radius: .5em;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    margin: 1em auto 2em;
+    padding: 1em;
+    width: 99%;
+    min-height: 100px;
+    position: relative;
+    overflow: hidden;
+    min-width: 100%;
+    border: .5em solid #aaa;
+}
+	.timeline .scrubber{
+		cursor: move;
+		height: 100%;
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		-webkit-transition: all .25s linear;
+		-moz-transition: all .25s linear;
+		-ms-transition: all .25s linear;
+		-o-transition: all .25s linear;
+		transition: all .25s linear;
+		
+	}
+	.timeline .gap{
+		border-left: 1px solid #DDDDDD;
+		float: left;
+		height: 100%;
+		width: 10%;
+		-webkit-transition: all .25s linear;
+		-moz-transition: all .25s linear;
+		-ms-transition: all .25s linear;
+		-o-transition: all .25s linear;
+		transition: all .25s linear;
+		
+	}
+		.timeline .gap:nth-child(2n){
+			background: rgba(200,200,200,.1);
+		}
 
 
 
