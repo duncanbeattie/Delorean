@@ -37,9 +37,9 @@ $(function(){
 	console.log('Great Scott!!!');
 	$('.dlrn').DeLorean({
 		data: 'assets/json/plutonium252.json', 
-		devmode: true,
-		wrapper: $('.dlrn'),
-		nav: $('.qnav')
+		/* devmode: true, */
+		/* devnav: 'qnav', */
+		wrapper: $('.dlrn')
 	});
 })
 
@@ -51,17 +51,23 @@ jQuery.fn.DeLorean = function() {
 	$.Q.args = arguments[0] || {}
 	$.Q.wrpr = $.Q.args.wrapper
 	$.Q.dev = $.Q.args.devmode
+	$.config
+	$.scrub
+	$.Q.points = []
 	
 	init = function(){
 		trace = function(m){if($.Q.dev){console.log(m)}}
 		trace('data file : '+$.Q.args.data)
-
+		
 		getData = function(f){
 			$.getJSON(f, function(data,status) {
 				if (status != "success") {trace("problem with json request");return;}
 				trace('data loaded:')
 			 	trace(data);
 				$.Q.data = data
+				$.config = data[0].config
+				
+				createTimeline()
 				SetLayouts()
 			});
 		}
@@ -69,6 +75,7 @@ jQuery.fn.DeLorean = function() {
 	
 	init()
 	getData($.Q.args.data)
+	
 
 	SetLayouts = function(){
 		trace('Setting Layouts')
@@ -89,31 +96,77 @@ jQuery.fn.DeLorean = function() {
 			  bgimg: '<div class="bgimg" style="background-image:url('+tmpl.image_url+');"></div>',
 			  btn: '<a href="'+tmpl.linkto+'">'+tmpl.linktext+'</a>'
 			};
-			
+			addPoint(data[i])
 			data[i].mkp = $.zc(Zen)
 			trace(data[i].mkp)
+			data[i].iid = i
 		}
+		
 		loadup(data[0])
 		
-		quicknav()
+		if($.Q.dev && $.Q.args.devnav){quicknav()}
 	}
 	
 	quicknav = function(){
+		$.Q.wrpr.before('<div class="'+$.Q.args.devnav+'"></div>')
+		$.Q.qnav = $($('.'+$.Q.args.devnav))
 		var data = $.Q.data;
 		for(i=0;i<data.length;i++){
 			var lnk = '<span>'+data[i].name+'</span>'
-			$($.Q.args.nav).append(lnk)
+			$($.Q.qnav).append(lnk)
 		}
-		$($.Q.args.nav).children('span').each(function(ii, el){
+		$($.Q.qnav).children('span').each(function(ii, el){
 			$(el).click(function(){
 				loadup($.Q.data[ii])
 			})
 		})
 	}
 	
+	createTimeline = function(){
+		trace('timeline setup')
+		$.config.range = $.config.end_point-$.config.start_point
+		$.config.gp = 100/$.config.range
+		trace($.config)
+		
+		var tzen = $.zc('div.timeline>div.scrubber')
+		$.Q.wrpr.after(tzen)
+		$.scrub = $('.timeline .scrubber')
+
+		$($.scrub).css('width', (100*$.config.startzoom)+'%')
+		for(i=0;i<$.config.range;i++){$.scrub.append($.zc('div.gap'))}
+		$('.gap').css('width', $.config.gp+'%')
+		
+
+		$('.timeline').scroll(function(){
+			/* this is really fucking ugly */
+			$('#scrl').remove()
+			$("<style id='scrl' type='text/css'> .timeline:after{ left:"+$('.timeline').scrollLeft()+"px; } </style>").appendTo("head");
+		})
+		
+	}
+	
 	loadup = function(obj){
-		trace('loadup: '+obj.name)
+		trace('loadup: '+obj.name+' :: '+obj.iid)
+		$('.scrubber .active').removeClass('active')
+		$($.Q.points[obj.iid]).addClass('active')
 		$($.Q.wrpr).html(obj.mkp)
+	}
+	
+	addPoint = function(d){
+		trace('adding point : '+d.id+' :: '+d.datetime)
+		var n = d.datetime-$.config.start_point
+		var lft = n*$.config.gp
+		trace('n : '+n)
+		trace('lft : '+lft)
+
+		var Zen = {
+		  main: '.pnt.'+d.id+'>span{@nom}',
+		  nom: d.name
+		};
+		$('.gap:nth-child('+n+')').append($.zc(Zen))
+		$('.'+d.id).click(function(){loadup($.Q.data[d.iid])})
+		$.Q.points.push($('.'+d.id))
+		trace($.Q.points.length)
 	}
 };
 

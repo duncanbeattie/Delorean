@@ -1,8 +1,9 @@
 [
    {
       "config" : {
-         "start_point" : 0,
-         "end_point" : 10
+         "start_point" : 2000,
+         "end_point" : 2012,
+         "startzoom" : 2
       },
       "tmpl" : {
          "ptrn" : "div.lyt.tmpl_1{@bgimg}>h1{@h1}+div.copy{@text}",
@@ -14,7 +15,7 @@
       "name" : "Layout 1",
       "id" : "0001",
       "comments" : "This should be using the layout1 class. Short header, small body copy on the left and a big ass image to the right",
-      "datetime" : 2,
+      "datetime" : 2002,
       "tags" : "layouts,tests,template one"
    },
    {
@@ -28,7 +29,7 @@
       "name" : "Layout 2",
       "id" : "0002",
       "comments" : "This should be using the layout2 class. Covering background image with big header text",
-      "datetime" : 5,
+      "datetime" : 2006,
       "tags" : "layouts,tests,template two"
    },
    {
@@ -44,7 +45,7 @@
       "name" : "Layout 3",
       "id" : "0003",
       "comments" : "This should be using the layout3 class. header, copy, link and image",
-      "datetime" : 8,
+      "datetime" : 2011,
       "tags" : "layouts,tests,template three"
    }
 ]
