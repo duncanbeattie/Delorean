@@ -37,7 +37,7 @@ $(function(){
 	console.log('Great Scott!!!');
 	$('.dlrn').DeLorean({
 		data: 'assets/json/plutonium252.json', 
-		/* devmode: true, */
+		devmode: true,
 		/* devnav: 'qnav', */
 		wrapper: $('.dlrn')
 	});
@@ -126,16 +126,38 @@ jQuery.fn.DeLorean = function() {
 		trace('timeline setup')
 		$.config.range = $.config.end_point-$.config.start_point
 		$.config.gp = 100/$.config.range
+		$.config.curr_zoom = $.config.startzoom
+		$.config.step = $.config.zoom_step/100
 		trace($.config)
 		
 		var tzen = $.zc('div.timeline>div.scrubber')
 		$.Q.wrpr.after(tzen)
+		$('.timeline').after($.zc('div.controls>div.zoom>span.out+span.in'))
+		$('.controls').append($.zc('div.pan>span.lft+span.rgt'))
 		$.scrub = $('.timeline .scrubber')
 
-		$($.scrub).css('width', (100*$.config.startzoom)+'%')
+		$($.scrub).css('width', (100*$.config.curr_zoom)+'%')
 		for(i=0;i<$.config.range;i++){$.scrub.append($.zc('div.gap'))}
 		$('.gap').css('width', $.config.gp+'%')
+		$('.gap').each(function(i, el){
+			var dte = parseInt($.config.start_point)+parseInt(i)
+			$(el).append('<span class="dte">'+dte+'</span>')
+		})
 		
+		$('.zoom span').click(function(){
+			if($(this).hasClass('in')){$.config.curr_zoom += $.config.step}
+			else{$.config.curr_zoom -= $.config.step;if($.config.curr_zoom<1){$.config.curr_zoom=1}}
+			trace('zoomto: '+$.config.curr_zoom)
+			$($.scrub).css('width', (100*$.config.curr_zoom)+'%')
+			setTimeout('repos()', 300)
+			
+		})
+		
+		$('.pan span').click(function(){
+			var amnt = $.config.zoom_step*10
+			if($(this).hasClass('lft')){amnt=-$.config.zoom_step*10}
+			$('.timeline').animate({scrollLeft: $('.timeline').scrollLeft()+amnt}, 'slow');
+		})
 
 		$('.timeline').scroll(function(){
 			/* this is really fucking ugly */
@@ -145,10 +167,17 @@ jQuery.fn.DeLorean = function() {
 		
 	}
 	
+	repos = function(){
+		trace('repos')
+		var a_g = $('.gap .active').parent('.gap').position().left
+		$('.timeline').delay(250).animate({scrollLeft: a_g}, 'slow');
+	}
+	
 	loadup = function(obj){
 		trace('loadup: '+obj.name+' :: '+obj.iid)
 		$('.scrubber .active').removeClass('active')
 		$($.Q.points[obj.iid]).addClass('active')
+		repos()
 		$($.Q.wrpr).html(obj.mkp)
 	}
 	
@@ -164,7 +193,9 @@ jQuery.fn.DeLorean = function() {
 		  nom: d.name
 		};
 		$('.gap:nth-child('+n+')').append($.zc(Zen))
-		$('.'+d.id).click(function(){loadup($.Q.data[d.iid])})
+		$('.'+d.id).click(function(){
+			if(!$(this).hasClass('.active')){loadup($.Q.data[d.iid])}
+		})
 		$.Q.points.push($('.'+d.id))
 		trace($.Q.points.length)
 	}

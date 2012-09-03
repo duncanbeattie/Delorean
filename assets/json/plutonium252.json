@@ -2,8 +2,9 @@
    {
       "config" : {
          "start_point" : 2000,
-         "end_point" : 2012,
-         "startzoom" : 2
+         "end_point" : 2013,
+         "startzoom" : 2,
+         "zoom_step" : 25
       },
       "tmpl" : {
          "ptrn" : "div.lyt.tmpl_1{@bgimg}>h1{@h1}+div.copy{@text}",
