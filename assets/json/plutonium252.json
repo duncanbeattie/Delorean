@@ -7,11 +7,12 @@
          "zoom_step" : 25
       },
       "tmpl" : {
-         "ptrn" : "div.lyt.tmpl_1{@bgimg}>h1{@h1}+div.copy{@text}",
-         "text" : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-         "image_url" : "assets/img/layouts/test_1.jpg",
+         "ptrn" : "div.lyt.tmpl_1{@bgimg}>h1{@h1}+div.copy>h2{@h2}+p{@text}",
+         "text" : "Founded The Carnegie United Kingdom Trust to address the changing needs of the people of the United Kingdom and Ireland.",
+         "image_url" : "assets/img/layouts/carnegie.jpg",
          "class" : "layout1",
-         "header" : "Test Layout 1"
+         "header" : "1913",
+         "subhead" : "Andrew Carnegie"
       },
       "name" : "Layout 1",
       "id" : "0001",
@@ -21,11 +22,11 @@
    },
    {
       "tmpl" : {
-         "ptrn" : "div.lyt.tmpl_2>div.imgholder{@img}+div.copy>h1{@h1}+h2{@h2}",
-         "image_url" : "assets/img/layouts/test_2.jpg",
+         "ptrn" : "div.lyt.tmpl_2>div.imgholder{@img}+div.copy>h1{@h1}+p{@h2}",
+         "image_url" : "assets/img/layouts/building.jpg",
          "class" : "layout2",
-         "header" : "Test Layout 2",
-         "subhead" : "Sub header"
+         "header" : "Who we are",
+         "subhead" : "The Carnegie UK Trust is an independent, endowed charitable trust incorporated by a Royal Charter. The Trust is one of over twenty foundations established by Andrew Carnegie."
       },
       "name" : "Layout 2",
       "id" : "0002",
@@ -39,7 +40,7 @@
          "text" : "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
          "linkto" : "http://www.google.com",
          "linktext" : "linky link",
-         "image_url" : "assets/img/layouts/test_3.jpg",
+         "image_url" : "assets/img/layouts/1959.jpg",
          "class" : "layout3",
          "header" : "Test Layout 3"
       },
